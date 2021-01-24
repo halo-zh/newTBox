@@ -22,13 +22,13 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
-#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lis2dh12_reg.h"
+#include "custom_errno.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,7 +61,9 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t memsdata;
+uint8_t txMemsData=0;
 uint8_t ret=0xff;
+
 /* USER CODE END 0 */
 
 /**
@@ -98,14 +100,57 @@ int main(void)
   MX_CAN1_Init();
   MX_USART1_UART_Init();
   MX_UART4_Init();
-  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(GPIOB, MC20_EN_Pin, GPIO_PIN_RESET);
 
   CANMultiInit();
 
   
-  MEMSReadData(0xF,&memsdata,1);
+ // MEMSReadData(0xF,&memsdata,1);
+  BSP_I2C1_Init();
+  BSP_I2C1_ReadReg(0x33,0x0f,&memsdata,1);
+  
+  txMemsData = 0x0a;
+  if(BSP_ERROR_NONE !=BSP_I2C1_WriteReg(0x33,LIS2DH12_CTRL_REG2,&txMemsData,1))
+  {
+    while(1);
+    
+  }
+  
+  txMemsData = 0x40;
+  if(BSP_ERROR_NONE != BSP_I2C1_WriteReg(0x33,LIS2DH12_CTRL_REG6,&txMemsData,1))
+  {
+    while(1);
+  }
+  
+  txMemsData = 0x2a;
+  if(BSP_ERROR_NONE !=BSP_I2C1_WriteReg(0x33,LIS2DH12_INT2_CFG,&txMemsData,1))
+  {
+    while(1);
+  }
+  
+  txMemsData = 0x40;  //threshould
+  if(BSP_ERROR_NONE !=BSP_I2C1_WriteReg(0x33,LIS2DH12_INT2_THS,&txMemsData,1))
+  {
+    while(1);
+  }
+  
+  txMemsData = 0x00;  //threshould
+  if(BSP_ERROR_NONE != BSP_I2C1_WriteReg(0x33,LIS2DH12_INT2_DURATION,&txMemsData,1))
+  {
+    while(1);
+  }
+  
+  txMemsData = 0x5f;  //threshould
+  if(BSP_ERROR_NONE != BSP_I2C1_WriteReg(0x33,LIS2DH12_CTRL_REG1,&txMemsData,1))
+  {    
+    while(1);
+  }
+  
+   HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
+  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+  
+  HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
