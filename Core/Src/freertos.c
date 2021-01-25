@@ -414,8 +414,10 @@ uint8_t test=0;
         
      }
         
-        
-      sleepCondition = test;
+      if(test ==1)
+      {
+         sleepCondition = test;
+      }
              
           
           

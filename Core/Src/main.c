@@ -117,8 +117,15 @@ int main(void)
     
   }
   
-  txMemsData = 0x40;
+  txMemsData = 0xf4;
   if(BSP_ERROR_NONE != BSP_I2C1_WriteReg(0x33,LIS2DH12_CTRL_REG6,&txMemsData,1))
+  {
+    while(1);
+  }
+  
+  
+  txMemsData = 0x30;
+  if(BSP_ERROR_NONE !=BSP_I2C1_WriteReg(0x33,LIS2DH12_CTRL_REG4,&txMemsData,1))
   {
     while(1);
   }
@@ -129,7 +136,7 @@ int main(void)
     while(1);
   }
   
-  txMemsData = 0x40;  //threshould
+  txMemsData = 0x30;  //threshould
   if(BSP_ERROR_NONE !=BSP_I2C1_WriteReg(0x33,LIS2DH12_INT2_THS,&txMemsData,1))
   {
     while(1);
@@ -147,10 +154,7 @@ int main(void)
     while(1);
   }
   
-   HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-  
-  HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
+
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

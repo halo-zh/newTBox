@@ -280,7 +280,7 @@ void user_send_data_with_delay(char *buffer) {
 }
 
 
-#define RING_BUFFER_SIZE            (200)
+#define RING_BUFFER_SIZE            (1000)
 typedef struct
 {
     uint8_t  data[RING_BUFFER_SIZE];
