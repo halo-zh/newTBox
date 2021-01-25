@@ -392,8 +392,12 @@ uint8_t index=0;
 uint16_t batInsideVolt=0;
 uint8_t sleepCondition=0;
 uint8_t test=0;
+uint8_t externalPwrStatus=0;
+uint16_t delayCnt=0;
+#define DELAY_CNT  2*300
  void readBatInfoFunc(void const *arg)
  {
+   /* 500ms periodic */
    uint16_t tempAdc=0;
    uint16_t i=0;
   
@@ -414,13 +418,30 @@ uint8_t test=0;
         
      }
         
+                    
+      externalPwrStatus = HAL_GPIO_ReadPin(Power_Monitor_GPIO_Port,Power_Monitor_Pin); 
+      if(externalPwrStatus ==1)
+      {
+        delayCnt++;
+      }
+      else
+      {
+        delayCnt--;
+      }
+      
+      if(delayCnt>DELAY_CNT)
+      {
+        sleepCondition = 1;
+      }
+      else
+      {
+        sleepCondition = 0;
+      }
+      
       if(test ==1)
       {
          sleepCondition = test;
       }
-             
-          
-          
    
    
   
