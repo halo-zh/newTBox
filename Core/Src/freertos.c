@@ -422,11 +422,11 @@ uint16_t delayCnt=0;
       externalPwrStatus = HAL_GPIO_ReadPin(Power_Monitor_GPIO_Port,Power_Monitor_Pin); 
       if(externalPwrStatus ==1)
       {
-        delayCnt++;
+          delayCnt =0;
       }
       else
       {
-        delayCnt--;
+         delayCnt++;
       }
       
       if(delayCnt>DELAY_CNT)
