@@ -49,13 +49,16 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Bat_Discharge_EN_Pin|DEBUG_EN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(Bat_Discharge_EN_GPIO_Port, Bat_Discharge_EN_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, MC20_EN_Pin|LED_Y_Pin|Bat_Charge_En_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DEBUG_EN_GPIO_Port, DEBUG_EN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = Power_Monitor_Pin;

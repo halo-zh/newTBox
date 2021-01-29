@@ -22,6 +22,15 @@
 
 /* USER CODE BEGIN 0 */
 #include "string.h"
+
+#include <stdio.h>
+
+int fputc(int c, FILE *stream)
+{
+	UART4->DR = c;//将c赋给串口1的DR寄存器，即重定向到串口，也可以是其他的接口
+	while(!(UART4->SR & (1 << 7))){};//等待数据发送完成
+	return c;
+}
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart4;
@@ -33,7 +42,7 @@ void MX_UART4_Init(void)
 {
 
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
+  huart4.Init.BaudRate = 460800;
   huart4.Init.WordLength = UART_WORDLENGTH_8B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_NONE;

@@ -154,7 +154,7 @@ START:
         }
         osDelay(10);
     }
-    printf("Reg OK\r\n");
+    printf("Register on Net OK\r\n");
 		////printf("creg check ret is %d\n", ret);
     if(ret == AT_FAILED) 
     {
@@ -309,6 +309,7 @@ uint16_t packLiveData(char *t_payload)
 
     unsigned short json_len;
     sprintf(t_json, json,packID, batCurrent/10, batVolt/10,batSOC,batSOH,throttlePercent,motorRPM);
+    
 
     json_len = strlen(t_json)/sizeof(char);
     memcpy(t_payload, t_json, json_len);
@@ -757,7 +758,9 @@ int MQTT_Pub_Data()
 {
   
   char buffer[100];
-  user_send_data_with_delay(mqtt_pub_data);  
+  user_send_data_with_delay(mqtt_pub_data);
+  printf(mqtt_pub_data);
+  printf("\r\n");  
 
   int ret = user_get_data_with_delay(buffer, BUF_LEN,200);
   if(strstr(buffer, "QMTPUB: 0,0,0") != NULL) {     // CFG SUCCESS

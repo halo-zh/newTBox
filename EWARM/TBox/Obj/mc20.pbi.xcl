@@ -23,6 +23,10 @@ E:\WorkProject\AQ_STM\Tbox\newTBox\EWARM\..\Core\Inc
 -I
 E:\WorkProject\AQ_STM\Tbox\newTBox\EWARM/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
 -I
+E:\WorkProject\AQ_STM\Tbox\newTBox\EWARM/../X-CUBE-MEMS1/Target
+-I
+E:\WorkProject\AQ_STM\Tbox\newTBox\EWARM/../Drivers/BSP/Components/lis2dh12
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc\c
@@ -44,6 +48,10 @@ E:\WorkProject\AQ_STM\Tbox\newTBox\Drivers\CMSIS\Include
 E:\WorkProject\AQ_STM\Tbox\newTBox\Core\Inc
 -I
 E:\WorkProject\AQ_STM\Tbox\newTBox\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS
+-I
+E:\WorkProject\AQ_STM\Tbox\newTBox\X-CUBE-MEMS1\Target
+-I
+E:\WorkProject\AQ_STM\Tbox\newTBox\Drivers\BSP\Components\lis2dh12
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
